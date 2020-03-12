@@ -7,7 +7,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import TableData from '../../data/planets'
 
 const useStyles = makeStyles({
   root: {
@@ -18,10 +17,10 @@ const useStyles = makeStyles({
   },
 });
   
-  export default function SimpleTable() {
+export default function DataTable(props) {
     const classes = useStyles();
-    const data = TableData.data;
-    const dataHead = data.shift();
+    const { data } = props;
+    const dataHead = data.shift().data;
     return (
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
@@ -35,12 +34,9 @@ const useStyles = makeStyles({
           </TableHead>
           <TableBody>
             {data.map(row => (
-              <TableRow key={row[0]}>
+              <TableRow key={row.id}>
                 {
-                    row.map((cell , index) => {if(index !== 0) {
-                      return (<TableCell key={cell} align="right">{cell}</TableCell>)
-                    }
-                    })
+                  row.data.map((cell , index) =>  (<TableCell key={cell} align="right">{cell}</TableCell>))
                 }
               </TableRow>
             ))}

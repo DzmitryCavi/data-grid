@@ -1,11 +1,16 @@
 import React from 'react';
-import SimpleTable from './components/table/table'
+import DataTableContainer from './components/table/tableContainer';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import rootReducer from './store/reducers';
 
+const store = createStore(rootReducer);
+console.log(store.getState()) 
 function App() {
   return (
-    <div className="App">
-      <SimpleTable />
-    </div>
+    <Provider store={store}>
+       <DataTableContainer />
+    </Provider> 
   );
 }
 
