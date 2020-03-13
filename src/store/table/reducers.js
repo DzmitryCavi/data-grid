@@ -2,7 +2,7 @@ import { SORT_COLUMN, SELECT_ROW } from "./actions";
 import TableData from '../../data/planets';
 
 const defaultData = TableData.data.reduce((ac,el) =>
-    ac.concat([{id: el.shift(), active: false, data: el}]),
+    ac.concat([{id: el.shift(), selected: false, data: el}]),
     []
 );
 

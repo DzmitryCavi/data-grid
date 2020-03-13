@@ -11,11 +11,12 @@ export const changeSortColumn = data => (
 );
 
 
-export const selectRow = index => (
+export const selectRow = (data, id) => (
     {
         type: SELECT_ROW,
-        payload: {
-            index
-        }
+        payload: data.map(el => {
+                if(id === el.id && el.id !== 1){el.selected = !el.selected} 
+                return el
+            })
     }
 )
