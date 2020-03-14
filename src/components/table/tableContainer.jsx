@@ -12,6 +12,7 @@ function DataTableContainer(props){
                    rowsCounter={props.rowsCounter}
                    deleteSelectedRows={props.deleteSelectedRows}
                    selectAllRows={props.selectAllRows}
+                   isAllRowsSelected={props.isAllRowsSelected}
                    />
     )   
 }
@@ -20,7 +21,8 @@ const mapStateToProps = state => {
     return {
         data: state.table.data,
         sortings: state.table.sortings,
-        rowsCounter: state.table.rowsCounter
+        rowsCounter: state.table.rowsCounter,
+        isAllRowsSelected: state.table.isAllRowsSelected
     };
   }
 

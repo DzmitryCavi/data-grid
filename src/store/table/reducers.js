@@ -9,7 +9,8 @@ const defaultData = TableData.data.reduce((ac,el) =>
 const defaultState = {
     data: defaultData,
     rowsCounter: 0,
-    sortings: []
+    sortings: [],
+    isAllRowsSelected: false
 };
 
 export const tableReducer = (state = defaultState, action) => {
@@ -23,7 +24,8 @@ export const tableReducer = (state = defaultState, action) => {
         case SELECT_ALL_ROWS:
             return {
                 ...state,
-                data: action.payload
+                data: action.payload,
+                isAllRowsSelected: action.isAllRowsSelected
             }   
         case SELECT_ROW:
             return {

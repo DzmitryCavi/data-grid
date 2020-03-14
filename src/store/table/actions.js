@@ -15,13 +15,14 @@ export const changeSortColumn = data => (
     }
 );
 
-export const selectAllRows = data => (
+export const selectAllRows = (data, isSelected) => (
     {
         type: SELECT_ALL_ROWS,
         payload: data.map(el => {
-                el.selected = !el.selected;
+                el.selected = !isSelected;
                 return el
-            })
+            }),
+        isAllRowsSelected: !isSelected
     }
 )
 

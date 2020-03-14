@@ -31,8 +31,7 @@ const useStyles = makeStyles({
   
 export default function DataTable(props) {
     const classes = useStyles();
-    const { data } = props;
-
+    const { data, isAllRowsSelected } = props;
     const tableHeadData = TableData.head;
     
     const rowClickHandler = (id) => {
@@ -46,7 +45,7 @@ export default function DataTable(props) {
     }
 
     const selectAllRows = () => {
-      props.selectAllRows(data);
+      props.selectAllRows(data, isAllRowsSelected);
       props.changeNumberOfSelectedRows(data);
     }
 
