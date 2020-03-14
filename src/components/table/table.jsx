@@ -8,6 +8,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TableData from '../../data/planets';
+import Checkbox from '@material-ui/core/Checkbox';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles({
   root: {
@@ -37,15 +40,42 @@ export default function DataTable(props) {
       props.changeNumberOfSelectedRows(data);
     }
 
+    const deleteRows = () => {
+      props.deleteSelectedRows(data);
+      props.changeNumberOfSelectedRows(data);
+    }
+
+    const selectAllRows = () => {
+      props.selectAllRows(data);
+      props.changeNumberOfSelectedRows(data);
+    }
+
     const Row = () =>(
       <TableBody>
-        {data.map(row => (
-          <TableRow key={row.id} className={row.selected ? classes.activeRow : classes.unactiveRow} onClick={() => {rowClickHandler(row.id)}}>
-            {
-              row.data.map((cell, index) =>  (<TableCell key={row.id + index} align="right">{cell}</TableCell>))
+        {
+          data.map((row, index) => {
+            if(index < 10) 
+            { 
+              return (<TableRow key={row.id}>
+                <TableCell align="center">
+                  <Checkbox checked={row.selected}
+                  value="secondary"
+                  color="primary"
+                  inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  onChange={() => {rowClickHandler(row.id)}}
+                  />
+                </TableCell>
+                {
+                  row.data.map((cell, index) =>  
+                  (<TableCell key={row.id + index} align="right">
+                      {cell}
+                    </TableCell>))
+                }
+              </TableRow>)
             }
-          </TableRow>
-        ))}
+          }
+          )
+        }
       </TableBody>
     ) 
 
@@ -55,6 +85,18 @@ export default function DataTable(props) {
         <Table className={classes.table} stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
+                <TableCell align="center">
+                  <Checkbox
+                  value="secondary"
+                  color="primary"
+                  inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  onChange={selectAllRows}
+                  />
+                  <IconButton aria-label="delete" className={classes.margin} size="small" onClick={deleteRows}>
+                    <DeleteIcon fontSize="inherit" />
+                  </IconButton>
+                  {props.rowsCounter}
+                </TableCell>
                 { 
                   tableHeadData.map(cell => (<TableCell key={cell}  align="right">{cell}</TableCell>))
                 }

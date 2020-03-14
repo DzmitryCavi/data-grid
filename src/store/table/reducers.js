@@ -1,4 +1,4 @@
-import { SORT_COLUMN, SELECT_ROW } from "./actions";
+import { SORT_COLUMN, SELECT_ROW, CHANGE_NUMBER_OF_SELECTED_ROWS, DELETE_SELECTED_ROWS, SELECT_ALL_ROWS } from "./actions";
 import TableData from '../../data/planets';
 
 const defaultData = TableData.data.reduce((ac,el) =>
@@ -8,6 +8,7 @@ const defaultData = TableData.data.reduce((ac,el) =>
 
 const defaultState = {
     data: defaultData,
+    rowsCounter: 0,
     sortings: []
 };
 
@@ -19,7 +20,22 @@ export const tableReducer = (state = defaultState, action) => {
                 ...state,
                 data: action.payload
             }
+        case SELECT_ALL_ROWS:
+            return {
+                ...state,
+                data: action.payload
+            }   
         case SELECT_ROW:
+            return {
+                ...state,
+                data: action.payload
+            }
+        case CHANGE_NUMBER_OF_SELECTED_ROWS:
+            return {
+                ...state,
+                rowsCounter: action.payload
+            }
+        case DELETE_SELECTED_ROWS: 
             return {
                 ...state,
                 data: action.payload

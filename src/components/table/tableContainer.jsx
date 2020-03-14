@@ -1,25 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DataTable from './table';
-import { selectRow } from '../../store/table/actions'
-import { changeNumberOfSelectedRows } from '../../store/tools/actions'
+import { selectRow, changeNumberOfSelectedRows, deleteSelectedRows, selectAllRows } from '../../store/table/actions'
 
 function DataTableContainer(props){
     return (
-        <DataTable data={props.data} selectRow={props.selectRow} sortings={props.sortings} changeNumberOfSelectedRows={props.changeNumberOfSelectedRows}/>
+        <DataTable data={props.data} 
+                   selectRow={props.selectRow} 
+                   sortings={props.sortings} 
+                   changeNumberOfSelectedRows={props.changeNumberOfSelectedRows}
+                   rowsCounter={props.rowsCounter}
+                   deleteSelectedRows={props.deleteSelectedRows}
+                   selectAllRows={props.selectAllRows}
+                   />
     )   
 }
 
 const mapStateToProps = state => {
     return {
         data: state.table.data,
-        sortings: state.table.sortings
+        sortings: state.table.sortings,
+        rowsCounter: state.table.rowsCounter
     };
   }
 
 const mapDispatchToProps = {
+    selectAllRows,
     selectRow,
-    changeNumberOfSelectedRows
+    changeNumberOfSelectedRows,
+    deleteSelectedRows,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataTableContainer)

@@ -4,5 +4,4 @@ import {toolsReducer} from './tools/reducers'
 
 export default combineReducers({
     table: tableReducer,
-    tools: toolsReducer
 })

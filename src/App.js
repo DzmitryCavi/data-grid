@@ -13,7 +13,7 @@ import rootReducer from './store/reducers';
 function App() {
   return (
     <Provider store={store}>
-       <ToolsContainer />
+       {/* <ToolsContainer /> */}
        <DataTableContainer />
     </Provider> 
   );
