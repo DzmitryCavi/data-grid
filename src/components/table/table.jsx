@@ -7,32 +7,25 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import TableData from '../../data/planets';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 const useStyles = makeStyles({
   root: {
     width: '100%',
   },
   container: {
-    maxHeight: 440,
+    maxHeight: 500,
   },
-  activeRow: {
-    background: 'red',
-    cursor: 'pointer'
-  },
-  unactiveRow: {
-    background: 'white',
-    cursor: 'pointer'
-  }
 });
   
 export default function DataTable(props) {
     const classes = useStyles();
     const { data, isAllRowsSelected } = props;
-    const tableHeadData = TableData.head;
     
     const rowClickHandler = (id) => {
       props.selectRow(data, id);
@@ -49,7 +42,32 @@ export default function DataTable(props) {
       props.changeNumberOfSelectedRows(data);
     }
 
-    const Row = () =>(
+    const HeadRow = () => (
+      <TableRow>
+        <TableCell align="center">
+          <Checkbox
+          value="secondary"
+          color="primary"
+          inputProps={{ 'aria-label': 'secondary checkbox' }}
+          onChange={selectAllRows}
+          />
+          <IconButton aria-label="delete" className={classes.margin} size="small" onClick={deleteRows}>
+            <DeleteIcon fontSize="inherit" />
+          </IconButton>
+          {props.rowsCounter}
+        </TableCell>
+          { 
+            props.columnNames.map((cell, index) => 
+              (<TableCell key={cell.name}  align="center" onClick = {()=>{props.changeClolumnSort(data, index, props.columnNames, cell.isAscendingSort)}}>
+                  {cell.sorted ? cell.isAscendingSort ? <ArrowDownwardIcon fontSize="inherit"/> : <ArrowUpwardIcon fontSize="inherit"/> : <ArrowForwardIcon fontSize="inherit"/>}
+                  {cell.name}
+              </TableCell>)
+            )
+          }
+      </TableRow>
+    )
+
+    const Rows = () =>(
       <TableBody>
         {
           data.map((row, index) => {
@@ -66,7 +84,7 @@ export default function DataTable(props) {
                 </TableCell>
                 {
                   row.data.map((cell, index) =>  
-                  (<TableCell key={row.id + index} align="right">
+                  (<TableCell key={row.id + index} align="center">
                       {cell}
                     </TableCell>))
                 }
@@ -83,25 +101,9 @@ export default function DataTable(props) {
         <TableContainer className={classes.container}>
         <Table className={classes.table} stickyHeader aria-label="sticky table">
           <TableHead>
-            <TableRow>
-                <TableCell align="center">
-                  <Checkbox
-                  value="secondary"
-                  color="primary"
-                  inputProps={{ 'aria-label': 'secondary checkbox' }}
-                  onChange={selectAllRows}
-                  />
-                  <IconButton aria-label="delete" className={classes.margin} size="small" onClick={deleteRows}>
-                    <DeleteIcon fontSize="inherit" />
-                  </IconButton>
-                  {props.rowsCounter}
-                </TableCell>
-                { 
-                  tableHeadData.map(cell => (<TableCell key={cell}  align="right">{cell}</TableCell>))
-                }
-            </TableRow>
+            <HeadRow />
           </TableHead>
-              <Row />       
+            <Rows />       
         </Table>
       </TableContainer>
       </Paper>

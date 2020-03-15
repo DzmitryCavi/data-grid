@@ -1,19 +1,17 @@
-export const SORT_COLUMN = 'SORT_COLUMN';
+
 export const SELECT_ROW = 'SELECT_ROW';
 export const SELECT_ALL_ROWS = 'SELECT_ALL_ROWS';
 export const CHANGE_NUMBER_OF_SELECTED_ROWS = 'CHANGE_NUMBER_OF_SELECTED_ROWS';
 export const DELETE_SELECTED_ROWS = 'DELETE_SELECTED_ROWS';
+export const SORT_COLUMN = 'SORT_COLUMN';
 
-
-
-export const changeSortColumn = data => (
+export const changeClolumnSort = (data, columnId, columnNames, isAscendingSort) => (
     {
         type: SORT_COLUMN,
-        payload: {
-            data
-        }
+        payload: data.sort((a,b) => isAscendingSort ? a.data[columnId] > b.data[columnId] : a.data[columnId] < b.data[columnId]),
+        columnNames: columnNames.map((el, index) => index === columnId ? {...el , sorted: true, isAscendingSort: !el.isAscendingSort} : {...el, sorted: false, isAscendingSort: true})
     }
-);
+)
 
 export const selectAllRows = (data, isSelected) => (
     {
