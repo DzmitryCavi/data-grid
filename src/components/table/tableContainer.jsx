@@ -21,7 +21,7 @@ function DataTableContainer(props){
 
 const mapStateToProps = state => {
     return {
-        data: state.table.data,
+        data: state.table.filtredData,
         sortings: state.table.sortings,
         rowsCounter: state.table.rowsCounter,
         isAllRowsSelected: state.table.isAllRowsSelected,

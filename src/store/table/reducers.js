@@ -1,4 +1,4 @@
-import { SORT_COLUMN, SELECT_ROW, CHANGE_NUMBER_OF_SELECTED_ROWS, DELETE_SELECTED_ROWS, SELECT_ALL_ROWS } from "./actions";
+import { SORT_COLUMN, SELECT_ROW, CHANGE_NUMBER_OF_SELECTED_ROWS, DELETE_SELECTED_ROWS, SELECT_ALL_ROWS, FILTER_TEXT_OR_NUMBER } from "./actions";
 import TableData from '../../data/planets';
 
 const defaultData = TableData.data.reduce((ac, el) =>
@@ -23,6 +23,11 @@ const defaultState = {
 export const tableReducer = (state = defaultState, action) => {
     switch (action.type) 
     {
+        case FILTER_TEXT_OR_NUMBER: 
+            return {
+                ...state,
+                filtredData: action.payload
+            }
         case SORT_COLUMN:
             return {
                 ...state,

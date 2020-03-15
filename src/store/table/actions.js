@@ -6,6 +6,18 @@ export const DELETE_SELECTED_ROWS = 'DELETE_SELECTED_ROWS';
 export const SORT_COLUMN = 'SORT_COLUMN';
 export const FILTER_TEXT_OR_NUMBER = 'FILTER_TEXT_OR_NUMBER';
 
+export const textFilter = (data, text) => (
+    {
+        type: FILTER_TEXT_OR_NUMBER,
+        payload: data.filter(value => 
+            Object.keys(value).reduce((ac,key) => 
+              value[key].toString().toLowerCase().indexOf(text.toLowerCase()) !== -1 ? true : ac,
+              false
+            )
+        )
+    }
+)
+
 export const changeClolumnSort = (data, columnId, columnNames, isAscendingSort) => (
     {
         type: SORT_COLUMN,

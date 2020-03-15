@@ -22,6 +22,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function Tools(props){
     const classes = useStyles();
+
+    const textChangeHandler = e => {
+        props.textFilter(props.data, e.target.value.toLowerCase())
+    }
+
     return (
         <ExpansionPanel>
             <ExpansionPanelSummary
@@ -43,6 +48,7 @@ export default function Tools(props){
                             helperText="Enter a text or number to filter"
                             fullWidth
                             margin="normal"
+                            onChange={textChangeHandler}
                             InputLabelProps={{
                                 shrink: true,
                             }}
