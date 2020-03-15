@@ -13,6 +13,7 @@ const defaultDataHead = TableData.head.reduce((ac, el) =>
 
 const defaultState = {
     data: defaultData,
+    filtredData: defaultData,
     columnNames: defaultDataHead,
     rowsCounter: 0,
     sortings: [],

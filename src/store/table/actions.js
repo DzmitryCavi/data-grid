@@ -4,6 +4,7 @@ export const SELECT_ALL_ROWS = 'SELECT_ALL_ROWS';
 export const CHANGE_NUMBER_OF_SELECTED_ROWS = 'CHANGE_NUMBER_OF_SELECTED_ROWS';
 export const DELETE_SELECTED_ROWS = 'DELETE_SELECTED_ROWS';
 export const SORT_COLUMN = 'SORT_COLUMN';
+export const FILTER_TEXT_OR_NUMBER = 'FILTER_TEXT_OR_NUMBER';
 
 export const changeClolumnSort = (data, columnId, columnNames, isAscendingSort) => (
     {
