@@ -53,7 +53,8 @@ export const tableReducer = (state = defaultState, action) => {
                 ...state,
                 data: action.allData,
                 filtredData: action.filtredData,
-                selectedRowsCounter: action.selectedRowsCounter
+                selectedRowsCounter: action.selectedRowsCounter,
+                isAllRowsSelected: action.isAllRowsSelected
             }   
         case FILTER_BY_MULTI_SELECT: 
             return {

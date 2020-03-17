@@ -61,15 +61,17 @@ export const selectRow = (data, id) => (
 )
 
 
-export const deleteSelectedRows = (filtredData, allData) => (
-    {
+export const deleteSelectedRows = (filtredData, allData) => { 
+    const visibleResult = filtredData.reduce((ac,el)=>
+            el.selected ? ac : ac.concat([el])
+            ,[])
+    return {
         type: DELETE_SELECTED_ROWS,
         allData: allData.reduce((ac,el)=>
             el.selected ? ac : ac.concat([el])
         ,[]),
-        filtredData: filtredData.reduce((ac,el)=>
-        el.selected ? ac : ac.concat([el])
-        ,[]),
+        filtredData: visibleResult,
+        isAllRowsSelected: filtredData.length === visibleResult.length,
         selectedRowsCounter: 0
     }
-)
+}
