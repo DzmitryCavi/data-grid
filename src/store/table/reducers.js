@@ -1,4 +1,4 @@
-import { SORT_COLUMN, SELECT_ROW, DELETE_SELECTED_ROWS, SELECT_ALL_ROWS, FILTER_TEXT_OR_NUMBER, FILTER_BY_MULTI_SELECT } from "./actions";
+import { SORT_COLUMN, SELECT_ROW, DELETE_SELECTED_ROWS, SELECT_ALL_ROWS, FILTER_TEXT_OR_NUMBER, FILTER_BY_MULTI_SELECT, VIRTUALIZATION_CHANGE } from "./actions";
 import TableData from '../../data/planets';
 
 const defaultData = TableData.data.reduce((ac, el) =>
@@ -17,12 +17,18 @@ const defaultState = {
     columnNames: defaultDataHead,
     selectedRowsCounter: 0,
     sortings: [],
-    isAllRowsSelected: false
+    isAllRowsSelected: false,
+    isVirtual: true
 };
 
 export const tableReducer = (state = defaultState, action) => {
     switch (action.type) 
     {
+        case VIRTUALIZATION_CHANGE:
+            return {
+                ...state,
+                isVirtual: action.payload
+            }
         case FILTER_TEXT_OR_NUMBER: 
             return {
                 ...state,

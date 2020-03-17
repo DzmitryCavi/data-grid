@@ -5,6 +5,14 @@ export const DELETE_SELECTED_ROWS = 'DELETE_SELECTED_ROWS';
 export const SORT_COLUMN = 'SORT_COLUMN';
 export const FILTER_TEXT_OR_NUMBER = 'FILTER_TEXT_OR_NUMBER';
 export const FILTER_BY_MULTI_SELECT = 'FILTER_BY_MULTI_SELECT';
+export const VIRTUALIZATION_CHANGE = 'VIRTUALIZATION_CHANGE';
+
+export const changeVirtualizationStatus = isVirtual => (
+    {
+        type: VIRTUALIZATION_CHANGE,
+        payload: !isVirtual
+    }
+)
 
 export const multiSelectFilter = (data, array) => (
     {

@@ -8,6 +8,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import Button from '@material-ui/core/Button';
+
 import { FixedSizeList as List } from 'react-window';
 
 const useStyles = makeStyles({
@@ -28,6 +30,15 @@ const useStyles = makeStyles({
   },
   bodyCell:{
     borderTop: '1px solid #137cbd'
+  },
+  nonVirtualBox:{
+    height: 500,
+    overflow: 'auto'
+  },
+  virtualButon:{
+    position: 'absolute',
+    top: 0,
+    left: 0
   }
 });
   
@@ -93,22 +104,33 @@ export default function DataTable(props) {
         </Grid>
     )}
     
-    const Rows = () => (
-      <List 
-        className={classes.body}
-        height={500}
-        itemCount={filtredData.length}
-        itemSize={70}
-        width={'100%'}
-      >
-        {Row}
-      </List>
+    const Rows = () => (<div>{
+      props.isVirtual ? (
+        <List 
+          className={classes.body}
+          height={500}
+          itemCount={filtredData.length}
+          itemSize={70}
+          width={'100%'}
+        >
+          {Row}
+        </List>
+      ) :
+      (<div className={classes.body}>
+        <div className={classes.nonVirtualBox}>
+          {filtredData.map((row, index) => 
+            <Row index={index}/>
+          )}
+        </div>
+      </div>)
+    }  </div>
     )
 
     return (
       <Paper className={classes.root}>
         <HeadRow />      
         <Rows />
+        <Button variant="contained" color="secondary" className={classes.virtualButon} onClick={() => {props.changeVirtualizationStatus(props.isVirtual)}}>Lazy Load {props.isVirtual ? 'ON' : 'OFF'}</Button>
       </Paper>  
     );
   }

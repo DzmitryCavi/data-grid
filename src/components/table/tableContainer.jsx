@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DataTable from './table';
-import { selectRow, deleteSelectedRows, selectAllRows, changeClolumnSort } from '../../store/table/actions'
+import { selectRow, deleteSelectedRows, selectAllRows, changeClolumnSort, changeVirtualizationStatus } from '../../store/table/actions'
 
 function DataTableContainer(props){
     return (
@@ -15,6 +15,8 @@ function DataTableContainer(props){
                    changeClolumnSort={props.changeClolumnSort}
                    columnNames={props.columnNames}
                    allData={props.allData}
+                   isVirtual={props.isVirtual}
+                   changeVirtualizationStatus={props.changeVirtualizationStatus}
                    />
     )   
 }
@@ -26,7 +28,8 @@ const mapStateToProps = state => {
         sortings: state.table.sortings,
         selectedRowsCounter: state.table.selectedRowsCounter,
         isAllRowsSelected: state.table.isAllRowsSelected,
-        columnNames: state.table.columnNames
+        columnNames: state.table.columnNames,
+        isVirtual: state.table.isVirtual
     };
   }
 
@@ -34,7 +37,8 @@ const mapDispatchToProps = {
     selectAllRows,
     selectRow,
     deleteSelectedRows,
-    changeClolumnSort
+    changeClolumnSort,
+    changeVirtualizationStatus
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataTableContainer)
