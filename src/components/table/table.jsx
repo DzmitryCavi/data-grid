@@ -41,6 +41,9 @@ export default function DataTable(props) {
 
     const deleteRows = () => {
       props.deleteSelectedRows(filtredData, allData);
+      if(isAllRowsSelected){
+        props.selectAllRows(filtredData, allData, isAllRowsSelected);
+      }
     }
 
     const selectAllRows = () => {
