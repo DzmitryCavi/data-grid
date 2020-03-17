@@ -4,6 +4,17 @@ export const SELECT_ALL_ROWS = 'SELECT_ALL_ROWS';
 export const DELETE_SELECTED_ROWS = 'DELETE_SELECTED_ROWS';
 export const SORT_COLUMN = 'SORT_COLUMN';
 export const FILTER_TEXT_OR_NUMBER = 'FILTER_TEXT_OR_NUMBER';
+export const FILTER_BY_MULTI_SELECT = 'FILTER_BY_MULTI_SELECT';
+
+export const multiSelectFilter = (data, array) => (
+    {
+        type: FILTER_BY_MULTI_SELECT,
+        payload: array.length > 0 ? data.reduce((ac, el) => 
+            array.indexOf(el.data[1]) !== -1 ? ac.concat([el]) : ac,
+            []
+        ) : data
+    }
+)
 
 export const textFilter = (data, text) => (
     {

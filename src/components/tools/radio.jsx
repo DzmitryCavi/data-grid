@@ -70,9 +70,12 @@ function StyledRadio(props) {
   );
 }
 
-export default function CustomizedRadios() {
+export default function CustomizedRadios(props) {
   const classes = useStyles();
-  
+  const {data, filter} = props;
+  const changeHandler = e =>{
+    e.target.value === 'All' ? filter(data, '') : filter(data, e.target.value);
+  }
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">Metalicity Raito</FormLabel>
@@ -81,6 +84,7 @@ export default function CustomizedRadios() {
         defaultValue="[Fe/H]"
         aria-label="Metalicity"
         name="customized-radios"
+        onChange={changeHandler}
       >
         <FormControlLabel value="All" control={<StyledRadio />} label="All" />
         <FormControlLabel

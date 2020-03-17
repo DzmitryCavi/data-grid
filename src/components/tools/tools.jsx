@@ -30,9 +30,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function Tools(props){
     const classes = useStyles();
-
+    const {textFilter, data, multiSelectFilter} = props;
     const textChangeHandler = e => {
-        props.textFilter(props.data, e.target.value.toLowerCase())
+        textFilter(data, e.target.value.toLowerCase())
     }
 
     return (
@@ -46,7 +46,7 @@ export default function Tools(props){
                 <Typography className={classes.headingText}>Filters</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-                <Grid container spacing={0} justify="start" alignItems="center">
+                <Grid container spacing={0} alignItems="center">
                     <Grid item xs={12}>
                         <TextField
                             id="outlined-full-width"
@@ -63,14 +63,14 @@ export default function Tools(props){
                             variant="outlined"
                         />
                     </Grid>
-                    <Grid item xs={2} >
-                        <Button variant="outlined" color="secondary" className={classes.button}>Delete All Filters</Button>
+                    <Grid item xs={3} >
+                        <Button variant="outlined" color="secondary" className={classes.button} onClick={()=>{textFilter(data, '')}}>Delete All Filters</Button>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <StyledRadio filter={textFilter} data={data}/> 
                     </Grid>
                     <Grid item xs={2}>
-                        <StyledRadio /> 
-                    </Grid>
-                    <Grid item xs={2}>
-                        <MultipleSelect />
+                        <MultipleSelect filter={multiSelectFilter} data={data}/>
                     </Grid>
                 </ Grid>
             </ExpansionPanelDetails>
