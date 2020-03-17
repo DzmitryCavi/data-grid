@@ -1,29 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DataTable from './table';
-import { selectRow, changeNumberOfSelectedRows, deleteSelectedRows, selectAllRows, changeClolumnSort } from '../../store/table/actions'
+import { selectRow, deleteSelectedRows, selectAllRows, changeClolumnSort } from '../../store/table/actions'
 
 function DataTableContainer(props){
     return (
-        <DataTable data={props.data} 
+        <DataTable filtredData={props.filtredData}
                    selectRow={props.selectRow} 
                    sortings={props.sortings} 
-                   changeNumberOfSelectedRows={props.changeNumberOfSelectedRows}
-                   rowsCounter={props.rowsCounter}
+                   selectedRowsCounter={props.selectedRowsCounter}
                    deleteSelectedRows={props.deleteSelectedRows}
                    selectAllRows={props.selectAllRows}
                    isAllRowsSelected={props.isAllRowsSelected}
                    changeClolumnSort={props.changeClolumnSort}
                    columnNames={props.columnNames}
+                   allData={props.allData}
                    />
     )   
 }
 
 const mapStateToProps = state => {
     return {
-        data: state.table.filtredData,
+        filtredData: state.table.filtredData,
+        allData: state.table.data,
         sortings: state.table.sortings,
-        rowsCounter: state.table.rowsCounter,
+        selectedRowsCounter: state.table.selectedRowsCounter,
         isAllRowsSelected: state.table.isAllRowsSelected,
         columnNames: state.table.columnNames
     };
@@ -32,7 +33,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     selectAllRows,
     selectRow,
-    changeNumberOfSelectedRows,
     deleteSelectedRows,
     changeClolumnSort
 }

@@ -1,7 +1,6 @@
 
 export const SELECT_ROW = 'SELECT_ROW';
 export const SELECT_ALL_ROWS = 'SELECT_ALL_ROWS';
-export const CHANGE_NUMBER_OF_SELECTED_ROWS = 'CHANGE_NUMBER_OF_SELECTED_ROWS';
 export const DELETE_SELECTED_ROWS = 'DELETE_SELECTED_ROWS';
 export const SORT_COLUMN = 'SORT_COLUMN';
 export const FILTER_TEXT_OR_NUMBER = 'FILTER_TEXT_OR_NUMBER';
@@ -26,16 +25,18 @@ export const changeClolumnSort = (data, columnId, columnNames, isAscendingSort) 
     }
 )
 
-export const selectAllRows = (data, isSelected) => (
-    {
+export const selectAllRows = (filtredData, allData, isSelected) => {
+    const arrayOfFiltredDataID = filtredData.map(el => el.id);
+    return {
         type: SELECT_ALL_ROWS,
-        payload: data.map(el => {
-                el.selected = !isSelected;
-                return el
-            }),
-        isAllRowsSelected: !isSelected
+        allData: allData.map(el => arrayOfFiltredDataID.indexOf(el.id) !== -1 ? {...el, selected: !isSelected} : el),
+        filtredData: filtredData.map(el => ({...el, selected: !isSelected})),
+        isAllRowsSelected: !isSelected,
+        selectedRowsCounter: isSelected ? 0 : arrayOfFiltredDataID.length
     }
-)
+}
+    
+
 
 export const selectRow = (data, id) => (
     {
@@ -43,22 +44,21 @@ export const selectRow = (data, id) => (
         payload: data.map(el => {
                 if(id === el.id && el.id !== 1){el.selected = !el.selected} 
                 return el
-            })
+            }),
+        selectedRowsCounter: data.reduce((ac,el)=> el.selected ? ac + 1 : ac, 0)
     }
 )
 
-export const changeNumberOfSelectedRows = data => (
-    {
-        type: CHANGE_NUMBER_OF_SELECTED_ROWS,
-        payload: data.reduce((ac,el)=> el.selected ? ac + 1 : ac, 0)
-    }
-);
 
-export const deleteSelectedRows = data => (
+export const deleteSelectedRows = (filtredData, allData) => (
     {
         type: DELETE_SELECTED_ROWS,
-        payload: data.reduce((ac,el)=>
+        allData: allData.reduce((ac,el)=>
             el.selected ? ac : ac.concat([el])
-        ,[])
+        ,[]),
+        filtredData: filtredData.reduce((ac,el)=>
+        el.selected ? ac : ac.concat([el])
+        ,[]),
+        selectedRowsCounter: 0
     }
 )

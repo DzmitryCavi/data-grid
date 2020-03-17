@@ -9,8 +9,13 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MultipleSelect from './multiplySelect';
 import StyledRadio from './radio';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
+    root: {
+        width: '60%',
+        margin: 'auto !important'
+    },
     heading: {
         background: '#137cbd'
     },
@@ -18,6 +23,9 @@ const useStyles = makeStyles(theme => ({
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular,
     },
+    button: {
+        margin: 15
+    }
   }));
 
 export default function Tools(props){
@@ -28,7 +36,7 @@ export default function Tools(props){
     }
 
     return (
-        <ExpansionPanel>
+        <ExpansionPanel className={classes.root}>
             <ExpansionPanelSummary
                 expandIcon={<ExpandMoreIcon />}
                 className={classes.heading}
@@ -38,7 +46,7 @@ export default function Tools(props){
                 <Typography className={classes.headingText}>Filters</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-                <Grid container spacing={2} justify="center" alignItems="center">
+                <Grid container spacing={0} justify="start" alignItems="center">
                     <Grid item xs={12}>
                         <TextField
                             id="outlined-full-width"
@@ -55,11 +63,14 @@ export default function Tools(props){
                             variant="outlined"
                         />
                     </Grid>
+                    <Grid item xs={2} >
+                        <Button variant="outlined" color="secondary" className={classes.button}>Delete All Filters</Button>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <StyledRadio /> 
+                    </Grid>
                     <Grid item xs={2}>
                         <MultipleSelect />
-                    </Grid>
-                    <Grid item xs={1}>
-                        <StyledRadio /> 
                     </Grid>
                 </ Grid>
             </ExpansionPanelDetails>

@@ -4,6 +4,8 @@ import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
+import Checkbox from '@material-ui/core/Checkbox';
+import ListItemText from '@material-ui/core/ListItemText';
 import Select from "@material-ui/core/Select";
 import Chip from "@material-ui/core/Chip";
 
@@ -67,31 +69,21 @@ export default function MultipleSelect() {
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel id="mutiple-discovery-label">Discovery Method</InputLabel>
+        <InputLabel id="demo-mutiple-checkbox-label">Discovery</InputLabel>
         <Select
-          labelId="mutiple-discovery-label"
-          id="mutiple-discovery"
-          className={classes.select}
+          labelId="demo-mutiple-checkbox-label"
+          id="demo-mutiple-checkbox"
           multiple
           value={currentValue}
           onChange={handleChange}
-          input={<Input id="select-multiple-discovery" />}
-          renderValue={selected => (
-            <div className={classes.chips}>
-              {selected.map(value => (
-                <Chip key={value} label={value} className={classes.chip} />
-              ))}
-            </div>
-          )}
+          input={<Input />}
+          renderValue={selected => selected.join(', ')}
           MenuProps={MenuProps}
         >
-          {values.map(value => (
-            <MenuItem
-              key={value}
-              value={value}
-              style={getStyles(value, currentValue, theme)}
-            >
-              {value}
+          {values.map(name => (
+            <MenuItem key={name} value={name}>
+              <Checkbox checked={currentValue.indexOf(name) > -1} />
+              <ListItemText primary={name} />
             </MenuItem>
           ))}
         </Select>

@@ -13,6 +13,10 @@ const useStyles = makeStyles({
       backgroundColor: "transparent"
     }
   },
+  group: {
+    'flex-wrap': 'inherit',
+    'flex-direction': 'row',
+  },
   icon: {
     borderRadius: "50%",
     width: 16,
@@ -67,14 +71,18 @@ function StyledRadio(props) {
 }
 
 export default function CustomizedRadios() {
+  const classes = useStyles();
+  
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">Metalicity Raito</FormLabel>
       <RadioGroup
+        className={classes.group}
         defaultValue="[Fe/H]"
         aria-label="Metalicity"
         name="customized-radios"
       >
+        <FormControlLabel value="All" control={<StyledRadio />} label="All" />
         <FormControlLabel
           value="[Fe/H]"
           control={<StyledRadio />}
