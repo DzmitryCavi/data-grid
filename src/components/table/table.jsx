@@ -20,16 +20,15 @@ const useStyles = makeStyles({
     maxHeight: 500,
   },
   head: {
-    margin: '15px 0'
+    margin: '15px 0',
+    borderBottom: '3px solid #137cbd',
+    width: 'auto'
   },
   body: {
     margin: '15px 0',
   },
-  headCell:{
-    borderBottom: '3px solid'
-  },
   bodyCell:{
-    borderBottom: '1px solid #137cbd'
+    borderTop: '1px solid #137cbd'
   }
 });
   
@@ -51,7 +50,7 @@ export default function DataTable(props) {
 
     const HeadRow = () => (
       <Grid container justify="center" spacing={1} className={classes.head}>
-        <Grid item xs={1} align="center" className={classes.headCell}>
+        <Grid item xs={1} align="center" >
           <Checkbox
             value="secondary"
             color="primary"
@@ -65,7 +64,7 @@ export default function DataTable(props) {
         </Grid>
           { 
             props.columnNames.map((cell, index) => 
-              (<Grid item xs={1} key={cell.name} className={classes.headCell} align="center" onClick = {()=>{props.changeClolumnSort(filtredData, index, props.columnNames, cell.isAscendingSort)}}>
+              (<Grid item xs={1} key={cell.name} align="center" onClick = {()=>{props.changeClolumnSort(filtredData, index, props.columnNames, cell.isAscendingSort)}}>
                   {cell.sorted ? cell.isAscendingSort ? <ArrowDownwardIcon fontSize="inherit"/> : <ArrowUpwardIcon fontSize="inherit"/> : <ArrowForwardIcon fontSize="inherit"/>}
                   {cell.name}
               </Grid>)
@@ -77,7 +76,7 @@ export default function DataTable(props) {
     const Row = ({index, style}) => {
       let row = filtredData[index];
       return (
-        <Grid container justify="center" alignItems="center" key={row.id} style={style} spacing={1}>
+        <Grid container justify="center" alignItems="center" className={classes.bodyCell} key={row.id} style={style} spacing={1}>
           <Grid item xs={1} align="center">
               <Checkbox checked={row.selected}
                 value="secondary"
@@ -88,7 +87,7 @@ export default function DataTable(props) {
           </Grid>
           {
             row.data.map((cell, index) =>  
-            (<Grid item xs={1} key={row.id + index} className={cell ? classes.bodyCell : ''} align="center">
+            (<Grid item xs={1} key={row.id + index} align="center">
                 {cell}
               </Grid>))
           }
