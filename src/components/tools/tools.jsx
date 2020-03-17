@@ -64,7 +64,7 @@ export default function Tools(props){
                         />
                     </Grid>
                     <Grid item xs={3} >
-                        <Button variant="outlined" color="secondary" className={classes.button} onClick={()=>{textFilter(data, '')}}>Delete All Filters</Button>
+                        <Button variant="outlined" color="secondary" className={classes.button} onClick={()=>{textFilter(data, ''); multiSelectFilter(data, [])}}>Delete All Filters</Button>
                     </Grid>
                     <Grid item xs={3}>
                         <StyledRadio filter={textFilter} data={data}/> 

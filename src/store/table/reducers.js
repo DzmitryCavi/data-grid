@@ -60,6 +60,6 @@ export const tableReducer = (state = defaultState, action) => {
                 ...state,
                 filtredData: action.payload
             }
+        default: return state
     }
-    return state;
 }

@@ -81,7 +81,7 @@ export default function CustomizedRadios(props) {
       <FormLabel component="legend">Metalicity Raito</FormLabel>
       <RadioGroup
         className={classes.group}
-        defaultValue="[Fe/H]"
+        defaultValue="All"
         aria-label="Metalicity"
         name="customized-radios"
         onChange={changeHandler}
