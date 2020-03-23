@@ -37,7 +37,7 @@ export const tableReducer = (state = defaultState, action) => {
         case SORT_COLUMN:
             return {
                 ...state,
-                data: action.payload,
+                filtredData: action.payload,
                 columnNames: action.columnNames
             }
         case SELECT_ALL_ROWS:

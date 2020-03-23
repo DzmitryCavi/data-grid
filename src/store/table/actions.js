@@ -1,3 +1,4 @@
+import sortBy from 'lodash/sortBy'
 
 export const SELECT_ROW = 'SELECT_ROW';
 export const SELECT_ALL_ROWS = 'SELECT_ALL_ROWS';
@@ -39,7 +40,7 @@ export const textFilter = (data, text) => (
 export const changeClolumnSort = (data, columnId, columnNames, isAscendingSort) => (
     {
         type: SORT_COLUMN,
-        payload: data.sort((a,b) => isAscendingSort ? a.data[columnId] > b.data[columnId] : a.data[columnId] < b.data[columnId]),
+        payload: isAscendingSort ? sortBy(data, (item)=> item.data[columnId]) : sortBy(data, (item)=> item.data[columnId]).reverse(),
         columnNames: columnNames.map((el, index) => index === columnId ? {...el , sorted: true, isAscendingSort: !el.isAscendingSort} : {...el, sorted: false, isAscendingSort: true})
     }
 )
